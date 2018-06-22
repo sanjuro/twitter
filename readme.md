@@ -74,7 +74,7 @@ Below are the instructions to checkout and build the assessment project.
 1. git clone this repo, this should create a twitte folder.->  
     -> git clone git@github.com:sanjuro/twitter.git /Users/user/Development/Sourcecode/go
 2. cd to -> (Go path ) go/src/feed
-3. run "go install", this should build the twiiter file in the bin folder
+3. run "go install", there should build the feed file in the bin folder
 4. run "go build"
 
 # Running the application
