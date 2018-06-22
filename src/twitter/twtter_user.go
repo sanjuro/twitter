@@ -10,7 +10,7 @@ type TwitterUser struct {
 }
 
 func WriteUser(user TwitterUser) {
-	if user != nil && user.Name != nill{
+	if user != nil && user.Name != nil {
 		fmt.Println(user.Name)
 	}
 }
