@@ -8,6 +8,10 @@ import (
 	"os"
 )
 
+var (
+	fileInfo os.FileInfo
+)
+
 func CheckFile(filename string) bool {
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		fmt.Println(fmt.Sprintf("The File %s does not exist", filename))
@@ -23,10 +27,16 @@ func ReadLines(path string) (lines []string, err error) {
 		part []byte
 		prefix bool
 	)
+
 	if file, err = os.Open(path); err != nil {
-		return
+		return 
 	}
 	defer file.Close()
+
+	fileInfo, err = os.Stat(path)
+	if err != nil {
+		return
+	}
 
 	reader := bufio.NewReader(file)
 	buffer := bytes.NewBuffer(make([]byte, 0))
