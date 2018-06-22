@@ -1,4 +1,4 @@
-package main
+package file_handler
 
 import (
 	"bufio"
@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func checkFile(filename string) bool {
+func CheckFile(filename string) bool {
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		fmt.Println(fmt.Sprintf("The File %s does not exist", filename))
 		return false
@@ -17,7 +17,7 @@ func checkFile(filename string) bool {
 	}
 }
 
-func readLines(path string) (lines []string, err error) {
+func ReadLines(path string) (lines []string, err error) {
 	var (
 		file *os.File
 		part []byte

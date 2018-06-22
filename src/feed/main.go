@@ -5,6 +5,9 @@ import (
 	"flag"
 	"sort"
 	"strings"
+
+	"file_handler"
+	"twitter"
 )
 
 
@@ -15,15 +18,15 @@ func main() {
 
 	flag.Parse()
 
-	var users = make(map[string]TwitterUser)
-	var tweets = []Tweet{}
+	var users = make(map[string]twitter.TwitterUser)
+	var tweets = []twitter.Tweet{}
 	var order []string
 	
 	if *userTextFile != "" {
 
-		checkFile(*userTextFile)
+		file_handler.CheckFile(*userTextFile)
 
-		usersLines, err := readLines(*userTextFile)
+		usersLines, err := file_handler.ReadLines(*userTextFile)
 
 		if err != nil {
 			panic(err)
@@ -37,33 +40,33 @@ func main() {
 
 			usersSplit := strings.Split(usersLine, " follows ")
 
-			var user TwitterUser
-			user.name = usersSplit[0]
+			var user twitter.TwitterUser
+			user.Name = usersSplit[0]
 
-			user.followers = usersSplit[1]
+			user.Followers = usersSplit[1]
 			following := strings.Split(usersSplit[1], ",")
 
 			for _, follow := range following {
 				followName := strings.Trim(follow, " ")
-				var follower TwitterUser
-				follower.name = followName
-				users[follower.name] = follower
+				var follower twitter.TwitterUser
+				follower.Name = followName
+				users[follower.Name] = follower
 			}
 
-			users[user.name] = user
+			users[user.Name] = user
 		}
 
 		for _, user := range users {
-			order = append(order, user.name)
+			order = append(order, user.Name)
 			sort.Strings(order) 
 		}
 	}
 
 	if *tweetTextFile != "" {
 
-		checkFile(*tweetTextFile)
+		file_handler.CheckFile(*tweetTextFile)
 
-		tweetsLines, err := readLines(*tweetTextFile)
+		tweetsLines, err := file_handler.ReadLines(*tweetTextFile)
 
 		if err != nil {
 			panic(err)
@@ -77,9 +80,9 @@ func main() {
 			
 			tweetData := strings.Split(tweetsLine, "> ")
 
-			var tweet Tweet
-			tweet.owner = tweetData[0]
-			tweet.message = tweetData[1]
+			var tweet twitter.Tweet
+			tweet.Owner = tweetData[0]
+			tweet.Message = tweetData[1]
 			tweets = append(tweets, tweet)
 		}
 	}
@@ -87,12 +90,13 @@ func main() {
 	// Create feed
 	if *tweetTextFile != "" && *userTextFile != "" {
 		for _, key := range order {
-			user := users[key]
-			writeUser(user)
+			var user twitter.TwitterUser
+			user = users[key]
+			twitter.WriteUser(user)
 
 			for _, tweet := range tweets {
-				if user.name == tweet.owner || strings.Contains(user.followers, tweet.owner) {
-					writeTweet(tweet)
+				if user.Name == tweet.Owner || strings.Contains(user.Followers, tweet.Owner) {
+					twitter.WriteTweet(tweet)
 				}
 			}
 		}
