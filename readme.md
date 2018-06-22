@@ -71,11 +71,11 @@ Ward
 
 Below are the instructions to checkout and build the assessment project.
 
-1. git clone this repo, this should create a twitte folder.
-2. move the contents of this twitter folder into your main go workspace
-3. cd to -> (Go path ) go/src/github.com/sanjuro/twitter
-4. run "go install", this should build the twiiter file in the bin folder
-5. run "go build"
+1. git clone this repo, this should create a twitte folder.->  
+    -> git clone https://github.com/sanjuro/twitter /Users/user/Development/Sourcecode/go
+2. cd to -> (Go path ) go/src/github.com/sanjuro/twitter
+3. run "go install", this should build the twiiter file in the bin folder
+4. run "go build"
 
 # Running the application
 
