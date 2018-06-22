@@ -80,3 +80,5 @@ Below are the instructions to checkout and build the assessment project.
 # Running the application
 
 1. To run application type:  ./twitter  -users=user.txt -tweets=tweet.txt
+2.  ➜  cd src/github.com/sanjuro/twitter 
+    ➜  twitter go test -cover -v  
